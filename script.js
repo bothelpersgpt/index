@@ -21,7 +21,8 @@ function saveLoginState() {
 function updatePageAfterSignup() {
     // Check if the user is already on the home page
     if (window.location.pathname === "/home") {
-        // User is already on the home page, no need to redirect
+        // User is already on the home page, update content if signed up
+        updateHomeContent();
         return;
     }
 
@@ -48,11 +49,35 @@ function updatePageAfterSignup() {
     window.location.pathname = "/home";
 }
 
+function updateHomeContent() {
+    // Check if the user is signed in
+    if (sessionStorage.getItem("loggedIn") === "true") {
+        // Create a central container div
+        const container = document.getElementById("container");
+
+        // Create a div for the home page content
+        const homeContent = document.createElement("div");
+        homeContent.id = "home-content";
+        container.appendChild(homeContent);
+
+        // Create a header for the home page
+        const header = document.createElement("h2");
+        header.textContent = "Welcome to Iready-Exploit!";
+        homeContent.appendChild(header);
+
+        // Add a "Not Ready" message with better styling
+        const notReadyMessage = document.createElement("p");
+        notReadyMessage.textContent = "Not Ready Iready-Exploit Isn't Ready";
+        notReadyMessage.style.color = "#FF0000"; // Red color for emphasis
+        homeContent.appendChild(notReadyMessage);
+    }
+}
+
 // Check if the user is already logged in
 window.addEventListener("DOMContentLoaded", function () {
     if (sessionStorage.getItem("loggedIn") === "true") {
         // User is already logged in, show the home page
-        updatePageAfterSignup();
+        updateHomeContent();
     } else {
         // User is not logged in, show the signup form
         const container = document.getElementById("container");
@@ -96,4 +121,3 @@ window.addEventListener("DOMContentLoaded", function () {
         signupForm.appendChild(signupButton);
     }
 });
-
