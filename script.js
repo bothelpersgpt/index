@@ -96,3 +96,4 @@ window.addEventListener("DOMContentLoaded", function () {
         signupForm.appendChild(signupButton);
     }
 });
+
